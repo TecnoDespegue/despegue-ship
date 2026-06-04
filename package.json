@@ -1,0 +1,59 @@
+{
+  "name": "despegue-ship",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DespegueShip — marketing landing for the TecnoDespegue / Rene-Kuhm 13-agent suite. Next.js 16, React 19, Tailwind 4.1. Zero client JS, strict CSP, Lighthouse 0.95 floor.",
+  "license": "MIT",
+  "keywords": [
+    "nextjs",
+    "react",
+    "tailwindcss",
+    "agents",
+    "ai-agents",
+    "sdd",
+    "bdd",
+    "tdd",
+    "marketing",
+    "landing",
+    "tecnodespegue"
+  ],
+  "homepage": "https://despegueship.dev",
+  "bugs": {
+    "url": "https://github.com/TecnoDespegue/despegue-ship/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TecnoDespegue/despegue-ship.git"
+  },
+  "engines": {
+    "node": ">=20.18.1",
+    "pnpm": ">=9.12.3"
+  },
+  "packageManager": "pnpm@9.12.3",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run --reporter=verbose",
+    "test:watch": "vitest",
+    "lhci": "lhci autorun",
+    "audit": "pnpm audit --prod --audit-level=high",
+    "audit:fix": "pnpm audit --prod --fix"
+  },
+  "dependencies": {
+    "next": "16.2.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.2.5",
+    "typescript": "^5.4.0",
+    "vitest": "^2.1.0"
+  }
+}
