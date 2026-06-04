@@ -33,10 +33,12 @@ export function CTA() {
             Ship the entire SDD + BDD + TDD loop with 13 AI agents.
           </h2>
         <p className="max-w-2xl text-base text-[var(--color-fg-muted)]">
-          DespegueShip is the marketing surface of the TecnoDespegue /
+          DespegueShip is the public system of the TecnoDespegue /
           Rene-Kuhm <strong className="text-[var(--color-fg)]">13-agent
-          suite</strong>. Try the framework in your repo, read the docs,
-          or star it on GitHub. Open source, no vendor lock-in.
+          suite</strong>. v1.0.0 ships a marketing site as the first
+          surface; the system can grow to host more. Try the
+          framework in your repo, read the docs, or star it on
+          GitHub. Open source, no vendor lock-in.
         </p>
         </header>
 

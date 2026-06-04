@@ -1,9 +1,15 @@
-# SPEC.md — DespegueShip Landing Page
+# SPEC.md — DespegueShip
 
-> Marketing landing for **DespegueShip** — the public face of the
-> **TecnoDespegue / Rene-Kuhm 13-Agent Suite**: an orchestrator plus
-> 12 specialist AI agents that ship the entire SDD + BDD + TDD workflow
-> for enterprise teams.
+> Functional and non-functional specification for **DespegueShip** —
+> the public system of the **TecnoDespegue / Rene-Kuhm 13-Agent Suite**:
+> an orchestrator plus 12 specialist AI agents that ship the entire
+> SDD + BDD + TDD workflow for enterprise teams.
+>
+> DespegueShip is a **system**, not a single surface. v1.0.0 ships a
+> single-route, server-rendered marketing site as the initial surface;
+> the system is designed to host additional surfaces (dashboards,
+> CLIs, docs sites) without changing the brand, the governance, or
+> the upstream framework contract.
 >
 > _Naming note: "SDD+BDD+TDD" denotes the **workflow execution order**
 > (spec → behavior scenarios → tests), not the historical order of
@@ -14,13 +20,15 @@
 
 ## Project Name
 
-**DespegueShip — Landing Page** (`despegue-ship`)
+**DespegueShip** (`despegue-ship` repo at
+`https://github.com/TecnoDespegue/despegue-ship`)
 
-Owned by **TecnoDespegue** (the agency). The framework that powers the
-13-agent suite is the separate open-source project
+Owned by **TecnoDespegue** (the agency). The upstream framework that
+powers the 13-agent suite is the separate open-source project
 [`Rene-Kuhm/enterprise-dev-system`](https://github.com/Rene-Kuhm/enterprise-dev-system);
-this landing is the public marketing surface for that framework, kept
-under a distinct brand and repo.
+this system is the public home for that framework, kept under a
+distinct brand and repo so the framework remains reusable by teams
+that do not adopt DespegueShip.
 
 Working domain: `agents-landing.<your-domain>.com` (final TBD; placeholder is
 acceptable for v1).
@@ -34,7 +42,7 @@ that turns one AI orchestrator and 12 specialist agents into a complete
 software team: architecture, frontend, security, testing, data/API, DevOps,
 cloud (AWS), observability, AI integration, and methodology/governance.
 
-This landing page is the **public, marketing-facing surface** for that
+This system is the **public home** for that
 framework. Its only job is to convert a cold visitor — typically a **tech
 lead or senior engineer** evaluating AI agent systems for their team — into
 one of three actions:
@@ -80,12 +88,12 @@ site. It is a single, fast, SEO-strong marketing page that explains the
 
 ## Non-Goals
 
-To keep scope tight and protect quality, the v1 landing page will **not**:
+To keep scope tight and protect quality, the v1 system will **not**:
 
 - **Not** be a SaaS product, a hosted control plane, or a multi-tenant
   application. There is no login, no dashboard, no per-team workspace.
 - **Not** be a documentation portal. Deep framework docs live in the
-  GitHub repo (`Rene-Kuhm/enterprise-dev-system`); the landing links out.
+  GitHub repo (`Rene-Kuhm/enterprise-dev-system`); the system links out.
 - **Not** include a pricing page, plan tiers, or "buy now" flow. The
   framework is open.
 - **Not** collect PII beyond an optional, single email field for release
@@ -110,7 +118,7 @@ DevOps agent owns pipelines, etc. The orchestrator routes, parallelizes, and
 synthesizes.
 
 Most engineering leaders we have spoken to have never seen this
-"multi-agent, opinionated workflow" pattern. The landing page exists to
+"multi-agent, opinionated workflow" pattern. The system exists to
 make the pattern legible in one screen: **here are the 13 agents, here is
 how they collaborate, here is the stack, here is how to try it.**
 
@@ -159,7 +167,7 @@ colleague's link. Their questions, in priority order:
 
 | ID | Requirement | Priority | Notes |
 |---|---|---|---|
-| **FR-01** | The landing must include five named sections in this order: **Hero → The 13 Agents → How It Works → Tech Stack → CTA**. | Must | Section anchors must be deep-linkable. |
+| **FR-01** | The v1.0.0 surface must include five named sections in this order: **Hero → The 13 Agents → How It Works → Tech Stack → CTA**. | Must | Section anchors must be deep-linkable. |
 | **FR-02** | The "The 13 Agents" section must render all **13 agents** in a responsive grid (1 col mobile, 2 col tablet, 3–4 col desktop) with name, one-line role, and domain tag. | Must | Agents are listed in the **Architecture → Agent Roster** table. |
 | **FR-03** | The "How It Works" section must show a **3–5 step flow diagram** (Intake → Classify → Route → Parallelize → Synthesize) with a static SVG, not a JS animation. | Must | SVG is server-rendered. |
 | **FR-04** | The "Tech Stack" section must list at minimum: Next.js 16, React 19, Tailwind 4.1, TypeScript 5.x, Vercel, OpenTelemetry, Schema.org JSON-LD, with a one-line rationale per entry. | Must | No marketing fluff; engineer-grade. |
@@ -300,7 +308,7 @@ in the framework is a one-line code change:
   to the GitHub repo and any social profiles), `description`.
 - **`robots.txt`:** allow all.
 - **`sitemap.xml`:** generated by `next-sitemap` or Next.js built-in.
-- **No index bloat:** the landing is a single route; no faceted nav, no
+- **No index bloat:** the v1.0.0 surface is a single route; no faceted nav, no
   faceted search.
 
 ---
@@ -323,7 +331,7 @@ in the framework is a one-line code change:
   `X-Frame-Options: DENY` (defense in depth, also enforced by CSP
   `frame-ancestors 'none'`).
 - **No PII collected** in v1. The email field is opt-in, single-field,
-  and feeds a list provider only. No cookies set by the landing itself.
+  and feeds a list provider only. No cookies set by the system itself.
 - **Dependency hygiene:** `npm audit --omit=dev` must be clean on every
   PR. Renovate keeps Next.js / React / Tailwind on current patch
   versions.

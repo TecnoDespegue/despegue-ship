@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/GoogleChrome/lighthouse/main/types/lhr/budget.d.ts",
-  "_comment": "Lighthouse score + resource budgets for the Enterprise Dev System landing page. Mirrored in lighthouserc.json's assert.assertions so LHCI 0.14.x can fail the build on regressions. Performance, SEO, Accessibility, and Best Practices must all stay at 0.95 or above per SPEC NFR-02.",
+  "_comment": "Lighthouse score + resource budgets for the DespegueShip system. Mirrored in lighthouserc.json's assert.assertions so LHCI 0.14.x can fail the build on regressions. Performance, SEO, Accessibility, and Best Practices must all stay at 0.95 or above per SPEC NFR-02.",
   "budgets": [
     {
       "path": "/*",

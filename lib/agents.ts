@@ -149,7 +149,7 @@ export const AGENTS: readonly Agent[] = [
     domain: "Cloud · AWS",
     description:
       "AWS-specific (EC2/ECS/EKS/Lambda/RDS/S3/CloudFront), WA Framework.",
-    usedFor: "Landing the workload on AWS against the Well-Architected lens.",
+    usedFor: "Operating the workload on AWS against the Well-Architected lens.",
     icon: "Cloud",
   },
 ] as const;

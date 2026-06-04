@@ -11,13 +11,17 @@
 
 ## 1. What this repo is
 
-**DespegueShip** is the public marketing landing for the TecnoDespegue /
-Rene-Kuhm **13-agent suite** (1 orchestrator + 12 specialists). It is a
-single-route, fully static, server-rendered Next.js 16 application. The
-framework that powers the 13 agents lives in a separate repo
-([`Rene-Kuhm/enterprise-dev-system`](https://github.com/Rene-Kuhm/enterprise-dev-system));
-**this repo is the public surface for that framework, not the framework
-itself**.
+**DespegueShip** is the public system of the TecnoDespegue / Rene-Kuhm
+**13-agent suite** (1 orchestrator + 12 specialists). v1.0.0 ships a
+single-route, fully static, server-rendered marketing site as the
+initial surface; the system is designed to grow to host dashboards,
+CLIs, and other surfaces without changing the brand, the governance,
+or the upstream framework contract.
+
+The framework that powers the 13 agents lives in a separate repo
+([`Rene-Kuhm/enterprise-dev-system`](https://github.com/Rene-Kuhm/enterprise-dev-system)).
+**This repo is the public home for the suite, not the framework
+itself.**
 
 - **Domain:** `despegueship.dev` (placeholder, final TBD)
 - **Repo:** `https://github.com/TecnoDespegue/despegue-ship`
@@ -43,7 +47,7 @@ itself**.
 | **Framework (`enterprise-dev-system`)** | The 13-agent suite, the source of truth for agents, ADRs, SPECs | `https://github.com/Rene-Kuhm/enterprise-dev-system` |
 
 Changes to the **agent roster** happen in the framework repo
-(`enterprise-dev-system`). This landing re-renders from the
+(`enterprise-dev-system`). This system re-renders from the
 `lib/agents.ts` data file when the cache tag is invalidated.
 
 ## 4. Engineering rules (non-negotiable)

@@ -2,7 +2,7 @@
   "name": "despegue-ship",
   "version": "1.0.0",
   "private": true,
-  "description": "DespegueShip — marketing landing for the TecnoDespegue / Rene-Kuhm 13-agent suite. Next.js 16, React 19, Tailwind 4.1. Zero client JS, strict CSP, Lighthouse 0.95 floor.",
+  "description": "DespegueShip — the public system of the TecnoDespegue / Rene-Kuhm 13-agent suite. v1.0.0 ships a Next.js 16 marketing site as the initial surface; the system is designed to host additional surfaces over time. Built with Next.js 16, React 19, Tailwind 4.1. Zero client JS, strict CSP, Lighthouse 0.95 floor.",
   "license": "MIT",
   "keywords": [
     "nextjs",
@@ -13,8 +13,9 @@
     "sdd",
     "bdd",
     "tdd",
-    "marketing",
-    "landing",
+    "system",
+    "platform",
+    "open-source",
     "tecnodespegue"
   ],
   "homepage": "https://despegueship.dev",

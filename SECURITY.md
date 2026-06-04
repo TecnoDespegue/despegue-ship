@@ -1,7 +1,7 @@
 # SECURITY.md — agents-landing
 
 > Security policy, header inventory, and operational guidance for the
-> **TecnoDespegue / Rene-Kuhm 13-Agent Suite** landing page.
+> **TecnoDespegue / Rene-Kuhm 13-Agent Suite** public system (v1.0.0 ships a marketing site as the initial surface).
 >
 > _Owner: frontend-security-agent._
 > _Status: production-grade v1.0.0._
@@ -11,7 +11,7 @@
 
 ## 1. Threat Model (one-paragraph version)
 
-The landing is a single-route, static, server-rendered marketing page. It
+The v1.0.0 surface is a single-route, static, server-rendered marketing page. It
 collects no PII beyond an opt-in email field (FR-07, stubbed in v1). The
 attack surface is therefore narrow:
 
@@ -188,7 +188,7 @@ or `vercel.json` (static, non-security).
 | `X-Content-Type-Options` | `nosniff` | Block MIME-sniffing. |
 | `X-Frame-Options` | `DENY` | Defense-in-depth alongside `frame-ancestors 'none'`. |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | Full URL on same-origin, only origin on cross-origin. |
-| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()` | Deny every sensor / payment feature the landing has no need for. |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()` | Deny every sensor / payment feature the v1.0.0 surface has no need for. |
 | `Cross-Origin-Opener-Policy` | `same-origin` | Browsing-context isolation; required for `SharedArrayBuffer`. |
 | `Cross-Origin-Resource-Policy` | `same-origin` | Stops cross-origin embedding of our assets. |
 | `Cross-Origin-Embedder-Policy` | `require-corp` | Companion to COOP; enables crossOriginIsolated. |
@@ -250,7 +250,7 @@ Sentry.captureMessage("csp-violation", {
 
 ## 6. Cookie Security
 
-The landing itself does **not** set any cookies. The email signup
+The system at v1.0.0 does **not** set any cookies. The email signup
 (FR-07) is a Server Action that does not require session state in
 v1; a future iteration may add a CSRF token, which would be the
 first cookie on the site. When that happens, the cookie must be set
@@ -274,7 +274,7 @@ keeps it that way.
 ## 7. Subresource Integrity (SRI)
 
 SRI is required for any **third-party** script or stylesheet the
-landing may load in the future. To compute an integrity hash:
+third-party asset may load in the future. To compute an integrity hash:
 
 ```bash
 # For a script
@@ -291,7 +291,7 @@ curl -s https://cdn.example.com/lib.css | \
 
 Use the resulting hash as `integrity="sha384-..."` on the `<script>`
 or `<link>` tag, and pin `crossorigin="anonymous"`. The current
-landing has **zero** third-party assets, so no SRI hashes are
+system at v1.0.0 has **zero** third-party assets, so no SRI hashes are
 required today. The slot is reserved for the moment a CDN
 dependency is added.
 
@@ -360,7 +360,7 @@ via Husky. CI is the authoritative gate.
 
 ## 9. Out-of-Scope Today (v1.x TODOs)
 
-These controls are NOT in v1 of the landing (it has no auth, no
+These controls are NOT in v1 of the system (it has no auth, no
 multi-tenant data, no mutating endpoints). They are listed here so
 the next implementer picks them up by default.
 
@@ -443,7 +443,7 @@ test("csp-report accepts legacy format", async () => {
 
 ## 12. Contact / Reporting
 
-If you find a security issue in the landing, please follow the
+If you find a security issue in the system, please follow the
 project's responsible-disclosure process at the master repo:
 `https://github.com/Rene-Kuhm/enterprise-dev-system/security/advisories`.
 Do not file public issues for suspected vulnerabilities.
