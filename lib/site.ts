@@ -26,7 +26,7 @@ export const SITE = {
   /** The framework repo — the source of truth for the 13 agents. */
   repo: "https://github.com/Rene-Kuhm/enterprise-dev-system",
   /** This landing's own repo. Distinct from the framework repo. */
-  productRepo: "https://github.com/Tecnodespegue/despegue-ship",
+  productRepo: "https://github.com/TecnoDespegue/despegue-ship",
   /** Public star count for the framework. Refresh manually each release. */
   repoStars: "1.2k+",
   /** Framework version this landing is built against. */
