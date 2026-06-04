@@ -2,7 +2,7 @@
  * ui-icons — hand-rolled, dependency-free inline SVG icons.
  *
  * Each icon is a tiny server-rendered SVG. We use this instead of an
- * icon library because the landing ships zero client JS and we don't
+ * icon library because the system ships zero client JS and we don't
  * want a 200 KB+ icon dependency for ~20 marks. SVGs are simplified
  * versions of the canonical Lucide / Simple Icons marks, suitable for
  * UI chips. They are decorative (aria-hidden on the consumer side) —

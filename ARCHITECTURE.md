@@ -1,4 +1,4 @@
-# ARCHITECTURE.md — Enterprise Dev System Landing Page
+# ARCHITECTURE.md — DespegueShip
 
 > **Architecture view** of the `agents-landing` Next.js 16 / React 19.2 /
 > Tailwind 4.1 marketing surface. This document is the companion to
