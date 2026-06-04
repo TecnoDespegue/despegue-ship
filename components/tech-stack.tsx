@@ -5,7 +5,7 @@ import { Icon, type IconName } from "@/components/ui-icons";
  *
  * Static list of technologies the framework targets. Icons are
  * hand-rolled inline SVGs (see `components/ui-icons.tsx`) so we
- * don't take a dependency on an icon library — the landing ships
+ * don't take a dependency on an icon library — the system ships
  * zero client JS and a single static SVG per entry.
  */
 const STACK: ReadonlyArray<{

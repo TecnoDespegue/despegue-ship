@@ -2,8 +2,8 @@
    Tailwind 4.1 — CSS-first configuration
    -----------------------------------------------------------------------------
    We use the @theme directive (the Tailwind 4.1 way) to declare design tokens
-   for the landing. No tailwind.config.ts is required for these tokens; the
-   build picks them up from this file at compile time.
+   for the DespegueShip system. No tailwind.config.ts is required for these
+   tokens; the build picks them up from this file at compile time.
    ============================================================================= */
 
 @import "tailwindcss";

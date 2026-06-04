@@ -1,6 +1,6 @@
-# DespegueShip — Landing Page
+# DespegueShip
 
-> **13 AI agents. One shipping team.** Public marketing surface for the
+> **13 AI agents. One shipping team.** Public system of the
 > [TecnoDespegue / Rene-Kuhm](https://github.com/Rene-Kuhm/enterprise-dev-system)
 > 13-agent suite — an orchestrator plus 12 specialist AI agents that
 > ship the full **SDD + BDD + TDD** workflow for engineering teams.
@@ -10,9 +10,10 @@
 > invention (TDD, 2003 → BDD, 2006 → SDD, 2024). The framework runs
 > the loop top-down, from spec to tests._
 
-This repo hosts the **public landing page only** — the marketing surface,
-not the framework. The framework itself lives in the canonical repo linked
-below.
+This repo hosts the **DespegueShip public system**. v1.0.0 ships a
+single-route, server-rendered marketing site as the initial surface;
+the system is designed to grow. The upstream framework itself lives
+in the canonical repo linked below.
 
 - Live site: **https://despegueship.dev**
 - This repo: **https://github.com/TecnoDespegue/despegue-ship**
@@ -87,7 +88,7 @@ pnpm start
 
 ## Deploy to Vercel
 
-The landing page is designed for **Vercel** (Next.js's home). One-click:
+The v1.0.0 surface is designed for **Vercel** (Next.js's home). One-click:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FRene-Kuhm%2Fenterprise-dev-system&project-name=agents-landing&root-directory=agents-landing&framework=nextjs)
 
@@ -209,7 +210,7 @@ agents-landing/
 
 ## The 13 agents
 
-The landing surfaces the full agent roster. The orchestrator routes and
+The v1.0.0 surface surfaces the full agent roster. The orchestrator routes and
 synthesizes; the 12 specialists each own one slice of the SDD + BDD + TDD
 loop.
 
@@ -237,7 +238,7 @@ agent — the UI is fully driven by it.
 
 ## Source repository
 
-This landing is a marketing surface. The framework — every agent, every
+This repo is the public system of TecnoDespegue. The framework — every agent, every
 workflow, every ADR — lives in:
 
 > **https://github.com/Rene-Kuhm/enterprise-dev-system**
@@ -246,7 +247,7 @@ That repo is the source of truth for:
 
 - The agent prompts and tool definitions
 - The `SPEC.md → ARCHITECTURE.md → ADRs` chain
-- The full monorepo (this landing, the CLI, the docs site, the example
+- The full monorepo (this system, the CLI, the docs site, the example
   apps)
 - The GitHub Actions / Vercel / Terraform / Docker scaffolding
 
@@ -257,7 +258,7 @@ That repo is the source of truth for:
 1. Open an issue or pick one from the queue.
 2. Create a feature branch: `git switch -c feature/<slug>`.
 3. Make your change. **Every PR runs the full CI pipeline** — the same one
-   the landing uses to gate itself. A red CI blocks merge.
+   this system uses to gate itself. A red CI blocks merge.
 4. Open a PR. Vercel will spin up a **preview deployment** on every push.
 5. Merge once reviews are in and CI is green.
 

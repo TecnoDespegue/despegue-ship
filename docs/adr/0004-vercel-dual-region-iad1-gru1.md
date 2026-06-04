@@ -6,7 +6,7 @@
 
 ## Context
 
-The landing's primary audience is LATAM engineering teams
+The system's primary audience at v1.0.0 is LATAM engineering teams
 (TecnoDespegue is LATAM-rooted), with secondary traffic from the
 US and Europe. Vercel offers many edge regions; choosing a single
 region vs. multi-region affects three things:
@@ -18,10 +18,10 @@ region vs. multi-region affects three things:
 2. **Cost.** Vercel charges per region. Two regions ≈ 2x the
    edge cost of one.
 3. **Cold start / failover.** Two regions give basic within-region
-   failover. Three or more is overkill for a single static route.
+   failover. Three or more is overkill for the v1.0.0 surface.
 
 Single-region would have been a reasonable default for a global
-audience. For this landing, the LATAM-heavy audience makes the
+audience. For this system, the LATAM-heavy audience makes the
 extra `gru1` region high-ROI.
 
 ## Decision
@@ -43,12 +43,12 @@ more regions without traffic to justify them is wasted spend.
   region `iad1`) to ~30 ms (regional `gru1`).
 - Basic within-continent failover if one region is degraded.
 - Aligns with the framework's stated audience, which is a trust
-  signal to LATAM tech leads evaluating the page.
+  signal to LATAM tech leads evaluating the system.
 
 **Negative**
 
-- Edge cost is ~2x a single-region deploy. For a static landing
-  page, this is on the order of single-digit USD per month, so
+- Edge cost is ~2x a single-region deploy. For a static v1.0.0
+  surface, this is on the order of single-digit USD per month, so
   the trade is favorable.
 - Build time is ~2x (assets are pushed to both regions). Still
   well under the 15-minute CI timeout.

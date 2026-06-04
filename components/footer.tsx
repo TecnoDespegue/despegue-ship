@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 /**
  * Footer — Server Component.
  *
- * Semantic `<footer>` for the landing. Contains the canonical
+ * Semantic `<footer>` for the v1.0.0 surface. Contains the canonical
  * back-pointer to the repo, framework version, and a copyright
  * notice. Kept minimal — the framework repo is the canonical home
  * for everything else.
@@ -28,7 +28,7 @@ export function Footer() {
             className="inline-flex items-center gap-1.5 text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"
           >
             <Icon name="github" className="h-4 w-4" />
-            Landing source
+            Repo source
           </a>
           <a
             href={SITE.repo}

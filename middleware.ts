@@ -1,5 +1,5 @@
 /**
- * middleware.ts — Edge middleware for the agents-landing Next.js 16 app.
+ * middleware.ts — Edge middleware for the DespegueShip Next.js 16 app.
  *
  * Responsibilities (per SPEC §Security, NFR-03, and the frontend-security-agent
  * hard-deliverable checklist):
@@ -112,7 +112,7 @@ function generateNonce(): string {
  *     <style> block (e.g. critical CSS inlined for LCP) can be added
  *     without re-opening the policy. Inline `style=""` attributes on
  *     elements are NOT covered by 'self' and must be hashed or nonced
- *     — the landing does not use any today.
+ *     — the system at v1.0.0 does not use any today.
  *
  *   img-src 'self' data: blob:
  *     - 'self'  for the og-image.png, logo.png, agent icons
@@ -196,7 +196,7 @@ function buildCSP(nonce: string): string {
  * Notes on individual headers:
  *
  *   Strict-Transport-Security
- *     2-year max-age, includeSubDomains, preload-eligible. The landing
+ *     2-year max-age, includeSubDomains, preload-eligible. The system
  *     runs on Vercel which fronts everything with HTTPS, so this is
  *     always honored.
  *
@@ -213,7 +213,7 @@ function buildCSP(nonce: string): string {
  *
  *   Permissions-Policy
  *     Disable camera, microphone, geolocation, payment, USB, and
- *     accelerometer/gyroscope. The landing has zero need for any of
+ *     accelerometer/gyroscope. The system at v1.0.0 has zero need for any of
  *     these. The empty allowlist `()` means "no origin may use this
  *     feature" — it cannot be re-enabled by child frames.
  *
