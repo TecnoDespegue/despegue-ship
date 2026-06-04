@@ -1,0 +1,241 @@
+name: CI
+
+# Pipeline for the Enterprise Dev System landing page (agents-landing).
+# Stages: lint -> type-check -> test -> build -> security -> lighthouse-ci.
+# Vercel handles production deploys out of a separate Git integration;
+# this workflow is the quality gate that runs on every PR and push to main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-flight runs for the same ref to save CI minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least-privilege: only need to read the repo and write back the LHCI
+# server output. No secrets from forks.
+permissions:
+  contents: read
+
+env:
+  # Pinned via .nvmrc / engines; pnpm via corepack.
+  NODE_VERSION: "20.18.1"
+  PNPM_VERSION: "9.12.3"
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Lint — ESLint (next/core-web-vitals) on the full tree.
+  # ---------------------------------------------------------------------------
+  lint:
+    name: Lint (ESLint)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+  # ---------------------------------------------------------------------------
+  # 2. Type-check — strict TypeScript without emitting JS.
+  # ---------------------------------------------------------------------------
+  type-check:
+    name: Type-check (tsc --noEmit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [lint]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type-check
+        run: pnpm type-check
+
+  # ---------------------------------------------------------------------------
+  # 3. Test — Vitest unit tests (RSC shapes, JSON-LD, agent data).
+  # ---------------------------------------------------------------------------
+  test:
+    name: Test (Vitest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [type-check]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test
+        run: pnpm test -- --run --reporter=verbose
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ github.run_id }}
+          path: coverage
+          retention-days: 7
+
+  # ---------------------------------------------------------------------------
+  # 4. Build — `next build`. This is the source of truth for whether the
+  #     app actually compiles. Also acts as a smoke test for the security
+  #     headers in next.config.* and the middleware nonce flow.
+  # ---------------------------------------------------------------------------
+  build:
+    name: Build (next build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [test]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: pnpm build
+
+  # ---------------------------------------------------------------------------
+  # 5. Security — npm audit (production tree) + grep for known-bad patterns.
+  # ---------------------------------------------------------------------------
+  security:
+    name: Security (npm audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      # Fail on any high/critical vulnerability in the production tree.
+      # `--audit-level=high` (per task brief) means moderate is a warning,
+      # high and above is a hard failure.
+      - name: npm audit (production)
+        run: pnpm audit --prod --audit-level=high
+
+  # ---------------------------------------------------------------------------
+  # 6. Lighthouse CI — runs against the production build served locally,
+  #     asserts perf / SEO / a11y / best-practices >= 0.95 (see
+  #     lighthouse-budget.json). Uploads the HTML report as an artifact.
+  # ---------------------------------------------------------------------------
+  lighthouse-ci:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: pnpm build
+
+      - name: Run Lighthouse CI
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: pnpm dlx @lhci/cli@0.14.x autorun
+        # autorun = build + start + collect + assert in one command.
+        # It will:
+        #   1) `next start` the production build on :3000
+        #   2) Run Lighthouse against http://localhost:3000
+        #   3) Assert the budgets in lighthouserc.json (which references
+        #      lighthouse-budget.json for score thresholds)
+        #   4) Upload results to the LHCI server if LHCI_GITHUB_APP_TOKEN
+        #      is set; otherwise it stays local.
+
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report-${{ github.run_id }}
+          path: .lighthouseci
+          retention-days: 14

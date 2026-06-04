@@ -1,0 +1,77 @@
+{
+  "$schema": "https://raw.githubusercontent.com/GoogleChrome/lighthouse/main/types/lhr/budget.d.ts",
+  "_comment": "Lighthouse score + resource budgets for the Enterprise Dev System landing page. Mirrored in lighthouserc.json's assert.assertions so LHCI 0.14.x can fail the build on regressions. Performance, SEO, Accessibility, and Best Practices must all stay at 0.95 or above per SPEC NFR-02.",
+  "budgets": [
+    {
+      "path": "/*",
+      "timings": [
+        {
+          "metric": "interactive",
+          "budget": 3000
+        },
+        {
+          "metric": "first-contentful-paint",
+          "budget": 1500
+        },
+        {
+          "metric": "largest-contentful-paint",
+          "budget": 2000
+        },
+        {
+          "metric": "speed-index",
+          "budget": 2500
+        },
+        {
+          "metric": "total-blocking-time",
+          "budget": 200
+        },
+        {
+          "metric": "cumulative-layout-shift",
+          "budget": 0.1
+        }
+      ],
+      "resourceSizes": [
+        {
+          "resourceType": "script",
+          "budget": 100
+        },
+        {
+          "resourceType": "stylesheet",
+          "budget": 30
+        },
+        {
+          "resourceType": "image",
+          "budget": 200
+        },
+        {
+          "resourceType": "font",
+          "budget": 100
+        },
+        {
+          "resourceType": "third-party",
+          "budget": 0
+        },
+        {
+          "resourceType": "total",
+          "budget": 500
+        }
+      ],
+      "resourceCounts": [
+        {
+          "resourceType": "third-party",
+          "budget": 0
+        },
+        {
+          "resourceType": "total",
+          "budget": 30
+        }
+      ]
+    }
+  ],
+  "scores": {
+    "performance": 0.95,
+    "seo": 0.95,
+    "accessibility": 0.95,
+    "best-practices": 0.95
+  }
+}
